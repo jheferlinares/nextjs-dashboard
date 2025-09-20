@@ -28,7 +28,7 @@ export function UpdateInvoice({ id }: { id: string }) {
 export function DeleteInvoice({ id }: { id: string }) {
   return (
     <form
-      action={async () => {
+      action={async (): Promise<void> => {
         'use server';
         await deleteInvoice(id);
       }}
