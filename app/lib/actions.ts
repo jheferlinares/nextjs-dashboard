@@ -83,10 +83,7 @@ export async function updateInvoice(
   });
 
   if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Update Invoice.',
-    };
+    throw new Error('Missing Fields. Failed to Update Invoice.');
   }
 
   const { customerId, amount, status } = validatedFields.data;
@@ -99,7 +96,7 @@ export async function updateInvoice(
       WHERE id = ${id}
     `;
   } catch (error) {
-    return { message: 'Database Error: Failed to Update Invoice.' };
+    throw new Error('Database Error: Failed to Update Invoice.');
   }
 
   revalidatePath('/dashboard/invoices');
